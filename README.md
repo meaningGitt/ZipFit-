@@ -1,2 +1,2 @@
-# ZipFit-
+# ZipFit
 서울여자대학교 빅데이터분석 수업 기말프로젝트 - 공공데이터 6종을 법정동 단위로 융합한 개인화 거주지 추천 서비스 | Python · Streamlit · Plotly
