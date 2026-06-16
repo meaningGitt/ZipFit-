@@ -11,3 +11,5 @@ Streamlit Community Cloud 무료 배포는 일정 시간 접속자가 없으면 
 3. 값에는 배포된 Streamlit 앱 주소를 넣습니다. 예: `https://your-app.streamlit.app`
 
 앱은 `?health=1` 요청을 받으면 CSV와 차트를 로드하지 않고 `ok`만 응답합니다.
+서울여자대학교 빅데이터분석 수업 기말프로젝트 (데이터분석 및 시각화)
+- 공공데이터 6종을 법정동 단위로 융합한 개인화 거주지 추천 서비스 | Python · Streamlit · Plotly
