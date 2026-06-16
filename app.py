@@ -6,6 +6,8 @@
 #         · 동 선택 레이더차트 · 내 동네 검색
 # 실행: streamlit run app.py
 # =========================================================
+from pathlib import Path
+
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -13,17 +15,37 @@ import plotly.graph_objects as go
 
 st.set_page_config(layout="wide", page_title="우리동네 거주지 추천", page_icon="🏠")
 
+
+def is_healthcheck_request():
+    try:
+        return st.query_params.get("health") == "1"
+    except AttributeError:
+        return st.experimental_get_query_params().get("health", [""])[0] == "1"
+
+
+if is_healthcheck_request():
+    st.write("ok")
+    st.stop()
+
 # ---------------------------------------------------------
 # 데이터 로드
 # ---------------------------------------------------------
-@st.cache_data
+BASE_DIR = Path(__file__).resolve().parent
+DATA_PATH = BASE_DIR / "merged_score_by_region.csv"
+
+
+@st.cache_data(show_spinner="데이터를 불러오는 중입니다...")
 def load_data():
+    if not DATA_PATH.exists():
+        st.error(f"데이터 파일을 찾을 수 없습니다: {DATA_PATH.name}")
+        st.stop()
+
     # 첫 줄이 제목 줄(법정동코드 없음)이면 건너뛰고 읽음
-    with open("merged_score_by_region.csv", encoding="utf-8-sig") as f:
+    with DATA_PATH.open(encoding="utf-8-sig") as f:
         first = f.readline()
     header_row = 0 if "법정동코드" in first else 1
 
-    df = pd.read_csv("merged_score_by_region.csv", dtype={"법정동코드": str},
+    df = pd.read_csv(DATA_PATH, dtype={"법정동코드": str},
                      encoding="utf-8-sig", header=header_row)
     df.columns = df.columns.str.strip()
     df["법정동코드"] = df["법정동코드"].str.zfill(10)
