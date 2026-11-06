@@ -137,7 +137,7 @@ with left:
     st.dataframe(show.round(1), hide_index=True, use_container_width=True)
 
     st.markdown("#### 🗺️ 지도 (점수 높을수록 진하고 큼)")
-    fig_map = px.scatter_mapbox(
+    fig_map = px.scatter_map(
         top10, lat="위도", lon="경도",
         color="종합점수", size="종합점수",
         text="법정동명",
@@ -148,7 +148,7 @@ with left:
     )
     fig_map.update_traces(textposition="top center",
                           textfont=dict(size=11, color="#222"))
-    fig_map.update_layout(mapbox_style="open-street-map",
+    fig_map.update_layout(map_style="open-street-map",
                           margin=dict(l=0, r=0, t=0, b=0))
     st.plotly_chart(fig_map, use_container_width=True)
 
