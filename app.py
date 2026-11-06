@@ -148,8 +148,14 @@ with left:
     )
     fig_map.update_traces(textposition="top center",
                           textfont=dict(size=11, color="#222"))
-    fig_map.update_layout(map_style="open-street-map",
-                          margin=dict(l=0, r=0, t=0, b=0))
+    fig_map.update_layout(
+        map=dict(
+            style="open-street-map",
+            center=dict(lat=top10["위도"].mean(), lon=top10["경도"].mean()),
+            zoom=9.3,
+        ),
+        margin=dict(l=0, r=0, t=0, b=0),
+    )
     st.plotly_chart(fig_map, use_container_width=True)
 
 # ----- 우: 동 선택 → 레이더 차트 -----
